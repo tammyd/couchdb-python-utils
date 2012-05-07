@@ -178,14 +178,15 @@ class DocUtils:
             print "Sending _id: %s" % docid
             print "Data:", data
     
+        headers = {"Content-type": "application/json"}
         path = "/%s/%s" % (self.database, docid)
         
         h = httplib.HTTPConnection(self.hostname, self.port)
         if docid == "_bulk_docs":
-            h.request("POST",path,data)
+            h.request("POST",path,data,headers)
             resp = h.getresponse()
         else:
-            h.request("PUT",path,data)
+            h.request("PUT",path,data,headers)
             resp = h.getresponse()
         
         resp_text = resp.read()
